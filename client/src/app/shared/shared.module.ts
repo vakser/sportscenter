@@ -6,7 +6,6 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import {FormsModule} from "@angular/forms";
 
 
-
 @NgModule({
   declarations: [
     PaginationHeaderComponent,

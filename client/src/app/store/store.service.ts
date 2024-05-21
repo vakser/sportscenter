@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {Brand} from "../shared/models/brand";
 import {Type} from "../shared/models/type";
+import {Product} from "../shared/models/product";
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,9 @@ export class StoreService {
   getTypes() {
     const url = `${this.apiUrl}/types`
     return this.http.get<Type[]>(url);
+  }
+
+  getProduct(id: number) {
+    return this.http.get<Product>(this.apiUrl + "/"+ id);
   }
 }
