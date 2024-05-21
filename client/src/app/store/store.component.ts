@@ -4,6 +4,7 @@ import {Brand} from "../shared/models/brand";
 import {Type} from "../shared/models/type";
 import {PageChangedEvent} from "ngx-bootstrap/pagination";
 import {StoreModelService} from "./store.model.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-store',
@@ -12,7 +13,7 @@ import {StoreModelService} from "./store.model.service";
 })
 export class StoreComponent implements OnInit {
   @Input() title: string = '';
-  constructor(private storeService: StoreService, public storeData: StoreModelService) {
+  constructor(private storeService: StoreService, public storeData: StoreModelService, private toastrService: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -61,9 +62,11 @@ export class StoreComponent implements OnInit {
         this.storeData.pageable = data.pageable;
         this.storeData.totalElements = data.totalElements;
         this.storeData.currentPage = data.pageable.pageNumber + 1;
+        this.toastrService.success('Products fetched!')
       },
       error: (err) => {
-        console.error('Error fetching data: ' + err);
+        this.toastrService.error('Error fetching data');
+        console.log(err);
       }
     });
   }
