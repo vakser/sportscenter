@@ -36,7 +36,7 @@ public class BasketController {
     }
 
     @PostMapping
-    public ResponseEntity<BasketResponse> createBasket(@RequestBody BasketResponse basketResponse){
+    public ResponseEntity<BasketResponse> createBasket(@RequestBody BasketResponse basketResponse) {
         //Convert this Basket Response to Basket Entity
         Basket basket = convertToBasketEntity(basketResponse);
         //Call the service method to create the Basket
