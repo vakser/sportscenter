@@ -10,6 +10,7 @@ import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class ProductController {
         this.typeService = typeService;
         this.brandService = brandService;
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable("id") Integer productId) {
         ProductResponse productResponse = productService.getProductById(productId);
@@ -33,8 +35,9 @@ public class ProductController {
     }
 
     @GetMapping()
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Page<ProductResponse>> getProducts(
-            @PageableDefault()Pageable pageable,
+            @PageableDefault() Pageable pageable,
             @RequestParam(name="keyword", required = false) String keyword,
             @RequestParam(name="brandId", required = false) Integer brandId,
             @RequestParam(name="typeId", required = false) Integer typeId,
