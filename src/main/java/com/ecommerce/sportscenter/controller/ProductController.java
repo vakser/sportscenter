@@ -10,7 +10,6 @@ import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,7 +34,6 @@ public class ProductController {
     }
 
     @GetMapping()
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Page<ProductResponse>> getProducts(
             @PageableDefault() Pageable pageable,
             @RequestParam(name="keyword", required = false) String keyword,

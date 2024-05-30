@@ -18,7 +18,29 @@ export class BasketService {
   });
   basketTotalSource$ = this.basketTotalSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    // Check if there's a basket in local storage when the service is initialized
+    const storedBasket = localStorage.getItem('basket');
+    if (storedBasket) {
+      const parsedBasket = JSON.parse(storedBasket);
+      this.basketSource.next(parsedBasket);
+      this.calculateTotals();
+    }
+  }
+
+  updateShippingPrice(shippingPrice: number): void {
+    // Update the shipping price in the basketTotalSubject
+    const updatedBasketTotal = this.basketTotalSource.value;
+    updatedBasketTotal.shipping = shippingPrice;
+    updatedBasketTotal.total = updatedBasketTotal.subtotal + shippingPrice;
+    this.basketTotalSource.next(updatedBasketTotal);
+  }
+
+  clearBasket(){
+    this.basketSource.next(null);
+    localStorage.removeItem('basket_id');
+    localStorage.removeItem('basket');
+  }
 
   getBasket(id: string){
     return this.http.get<Basket>(this.apiUrl + '/' + id).subscribe({

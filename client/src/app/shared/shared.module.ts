@@ -3,8 +3,10 @@ import { CommonModule } from '@angular/common';
 import {PaginationModule} from "ngx-bootstrap/pagination";
 import { PaginationHeaderComponent } from './components/pagination-header/pagination-header.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
+import {MatInputModule} from "@angular/material/input";
+import {CarouselModule} from "ngx-bootstrap/carousel";
 
 
 @NgModule({
@@ -16,13 +18,20 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
   imports: [
     CommonModule,
     FormsModule,
-    PaginationModule.forRoot()
+    ReactiveFormsModule,
+    CarouselModule.forRoot(),
+    PaginationModule.forRoot(),
+    MatInputModule
   ],
   exports: [
     PaginationModule,
     PaginationHeaderComponent,
     PaginationComponent,
-    OrderSummaryComponent
+    CarouselModule,
+    OrderSummaryComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule
   ]
 })
 export class SharedModule { }

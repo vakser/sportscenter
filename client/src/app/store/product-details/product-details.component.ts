@@ -3,6 +3,8 @@ import {Product} from "../../shared/models/product";
 import {StoreService} from "../store.service";
 import {ActivatedRoute} from "@angular/router";
 import {BreadcrumbService} from "xng-breadcrumb";
+import {BasketService} from "../../basket/basket.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-product-details',
@@ -13,7 +15,8 @@ export class ProductDetailsComponent implements OnInit {
   product?: Product;
   quantity: number = 1;
 
-  constructor(private storeService: StoreService, private activatedRoute: ActivatedRoute, private breadcrumb: BreadcrumbService) {}
+  constructor(private storeService: StoreService, private activatedRoute: ActivatedRoute, private breadcrumb: BreadcrumbService,
+              private basketService: BasketService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.loadProduct();
@@ -33,10 +36,10 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart() {
-    // if (this.product) {
-    //   this.basketService.addItemToBasket(this.product, this.quantity);
-    //   this.toastr.success('Item added to cart');
-    // }
+    if (this.product) {
+      this.basketService.addItemToBasket(this.product, this.quantity);
+      this.toastr.success('Item added to cart');
+    }
   }
 
   extractImageName(): string | null {
